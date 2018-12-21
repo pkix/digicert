@@ -1,1 +1,1 @@
-# The SDK for digicert certcentral apiv2
+# A DigiCert CertCentral SDK for DigiCert Services (via DigiCert Services v2 API) 
