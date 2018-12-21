@@ -1,4 +1,4 @@
-# digicert sdk
+# digicert-go
 
 A Go library for interacting with
 [Digicert CertCentral's API v2](https://www.digicert.com/services/v2/documentation). This library allows you to:
@@ -18,7 +18,7 @@ A Go library for interacting with
 package main
 
 import (
-	"github.com/pkix/digicert"
+	"github.com/pkix/digicert-go"
 	"errors"
 	"log"
 	"os"
