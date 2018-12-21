@@ -81,7 +81,7 @@ func (c *Client) apiconnect(method, uri string, headers http.Header) ([]byte, er
 		TLSClientConfig: &tls.Config{
 			PreferServerCipherSuites: true,
 			MinVersion:               tls.VersionTLS12,
-			InsecureSkipVerify:       true,
+			InsecureSkipVerify:       false,
 		},
 	}
 	c.client = &http.Client{Transport: tr}
