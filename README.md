@@ -1,4 +1,4 @@
-# digicert-go
+# digicert
 
 A Go library for interacting with
 [Digicert CertCentral's API v2](https://www.digicert.com/services/v2/documentation). This library allows you to:
