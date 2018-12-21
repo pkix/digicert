@@ -18,7 +18,7 @@ A Go library for interacting with
 package main
 
 import (
-	"github.com/pkix/digicert-go"
+	"github.com/pkix/digicert"
 	"errors"
 	"log"
 	"os"
