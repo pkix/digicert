@@ -1,1 +1,1 @@
-# a sdk for digicert certcentral apiv2
+# The SDK for digicert certcentral apiv2
