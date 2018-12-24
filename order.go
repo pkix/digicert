@@ -175,7 +175,7 @@ func (c *Client) ListOrders(limit, offset int) (*ListOrders, error) {
 
 // submitting OV/EV/DV, Client certifiates orders to digicert
 
-// UnknownSSLRequest presents Order SSL Using Product Determinato
+// UnknownSSLRequest presents Order SSL Using Product Determinator
 type UnknownSSLRequest struct {
 	Certificate struct {
 		CommonName        string   `json:"common_name"`
@@ -543,7 +543,7 @@ type OrderClientResponse struct {
 }
 
 // OrderClientPremium exports Use this endpoint to create a client certificate that can be used for email encryption and signing, client authentication, and document signing.
-// NOTE: client certificates do not require additonal approval after the order is created.
+// NOTE: client certificates do not require additional approval after the order is created.
 func (c *Client) OrderClientPremium(request *OrderClientPremiumRequest) (*OrderClientResponse, error) {
 	c.result = new(OrderClientResponse)
 	c.request = request
@@ -591,7 +591,7 @@ type OrderClientDigitalSignaturePlusRequest struct {
 }
 
 // OrderClientEmailSecurityPlus exports Use this endpoint to create a client certificate that can be used for email encryption.
-// NOTE: client certificates do not require additonal approval after the order is created.
+// NOTE: client certificates do not require additional approval after the order is created.
 func (c *Client) OrderClientEmailSecurityPlus(request *OrderClientEmailSecurityPlusRequest) (*OrderClientResponse, error) {
 	c.result = new(OrderClientResponse)
 	c.request = request
@@ -606,7 +606,7 @@ func (c *Client) OrderClientEmailSecurityPlus(request *OrderClientEmailSecurityP
 }
 
 // OrderClientDigitalSignaturePlus exports Use this endpoint to create a client certificate that can be used for email signing, document signing, and client authentication.
-// NOTE: client certificates do not require additonal approval after the order is created.
+// NOTE: client certificates do not require additional approval after the order is created.
 func (c *Client) OrderClientDigitalSignaturePlus(request *OrderClientDigitalSignaturePlusRequest) (*OrderClientResponse, error) {
 	c.result = new(OrderClientResponse)
 	c.request = request
