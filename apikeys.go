@@ -105,7 +105,7 @@ func (c *Client) UpdateAPIKeyStatus(apiKeyID, status string) bool {
 // ViewAPIKey exports to view information about the specified API Key. Note that the API Key itself will not be returned. For security, it is only ever returned one time during the initial key creation.
 func (c *Client) ViewAPIKey(keyID string) (*ViewAPIKeyResponse, error) {
 	c.result = new(ViewAPIKeyResponse)
-	data, err := c.apiconnect("GET", "/key/"+keyID, nil)
+	data, err := c.makeRequest("GET", "/key/"+keyID, nil)
 	if err != nil {
 		return nil, err
 	}
