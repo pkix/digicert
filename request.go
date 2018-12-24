@@ -188,7 +188,7 @@ func (c *Client) ListRequests(status string) (*ListRequestsResponse, error) {
 		return nil, errors.New("The status are not accepted")
 	}
 	c.result = new(ListRequestsResponse)
-	data, err := c.apiconnect("GET", "/request?"+status, nil)
+	data, err := c.makeRequest("GET", "/request?"+status, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -201,7 +201,7 @@ func (c *Client) ListRequests(status string) (*ListRequestsResponse, error) {
 // ViewRequest exports Use this endpoint to retrieve a certificate request.
 func (c *Client) ViewRequest(requestID string) (*ViewRequestResponse, error) {
 	c.result = new(ViewRequestResponse)
-	data, err := c.apiconnect("GET", "/request/"+requestID, nil)
+	data, err := c.makeRequest("GET", "/request/"+requestID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -214,7 +214,7 @@ func (c *Client) ViewRequest(requestID string) (*ViewRequestResponse, error) {
 // UpdateRequestStatus exports Use this endpoint to retrieve the status of a previously submitted certificate request.
 // Statuses [REQUIRED]: submitted, pending, approved, rejected
 func (c *Client) UpdateRequestStatus(requestID string) (bool, error) {
-	_, err := c.apiconnect("PUT", "/request/"+requestID+"/status", nil)
+	_, err := c.makeRequest("PUT", "/request/"+requestID+"/status", nil)
 	if err != nil {
 		return false, err
 	}
