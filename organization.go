@@ -29,7 +29,7 @@ type Contact struct {
 	TelephoneExtension int    `json:"telephone_extension"`
 }
 
-// ViewOrganizationValidationResponse exports organizaiton valiation status
+// ViewOrganizationValidationResponse exports organization valiation status
 type ViewOrganizationValidationResponse struct {
 	Validations []struct {
 		DateCreated    string `json:"date_created,omitempty"`
@@ -43,7 +43,7 @@ type ViewOrganizationValidationResponse struct {
 	SchemeValidationErrors
 }
 
-// ViewOrganizationDetails represents the organizaiton details
+// ViewOrganizationDetails represents the organization details
 type ViewOrganizationDetails struct {
 	Address     string `json:"address,omitempty"`
 	Address2    string `json:"address2,omitempty"`
