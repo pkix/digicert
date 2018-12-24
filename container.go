@@ -106,7 +106,7 @@ type ViewAContainerOfParentResponse struct {
 func (c *Client) NewContainer(containerID string, request *NewContainerRequest) (*NewContainerResponse, error) {
 	c.result = new(NewContainerResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/container/"+containerID+"/children", nil)
+	data, err := c.makeRequest("POST", "/container/"+containerID+"/children", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func (c *Client) NewContainer(containerID string, request *NewContainerRequest) 
 // UpdateAContainer exports to update a container to change its name or description.
 func (c *Client) UpdateAContainer(containerID string, request *UpdateAContainerRequest) (bool, error) {
 	c.request = request
-	_, err := c.apiconnect("PUT", "/container/"+containerID, nil)
+	_, err := c.makeRequest("PUT", "/container/"+containerID, nil)
 	if err != nil {
 		return false, err
 	}
@@ -132,7 +132,7 @@ func (c *Client) UpdateAContainer(containerID string, request *UpdateAContainerR
 
 // DeactiveContainer exports deactivates the given container and all its children.
 func (c *Client) DeactiveContainer(containerID string) (bool, error) {
-	_, err := c.apiconnect("PUT", "/container/"+containerID+"/deactivate", nil)
+	_, err := c.makeRequest("PUT", "/container/"+containerID+"/deactivate", nil)
 	if err != nil {
 		return false, err
 	}
@@ -145,7 +145,7 @@ func (c *Client) DeactiveContainer(containerID string) (bool, error) {
 
 // ActiveContainer exports activates the given container and all its children.
 func (c *Client) ActiveContainer(containerID string) (bool, error) {
-	_, err := c.apiconnect("PUT", "/container/"+containerID+"/active", nil)
+	_, err := c.makeRequest("PUT", "/container/"+containerID+"/active", nil)
 	if err != nil {
 		return false, err
 	}
@@ -159,7 +159,7 @@ func (c *Client) ActiveContainer(containerID string) (bool, error) {
 // ViewContainer exports information about a specific container can be retrieved through this endpoint, including its name, description, template, and parent container id.
 func (c *Client) ViewContainer(containerID string) (*ViewContainerDetails, error) {
 	c.result = new(ViewContainerDetails)
-	data, err := c.apiconnect("GET", "/container/"+containerID, nil)
+	data, err := c.makeRequest("GET", "/container/"+containerID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -172,7 +172,7 @@ func (c *Client) ViewContainer(containerID string) (*ViewContainerDetails, error
 // ListContainerTempaltes exports container Templates define a set of features that are available to a container. Use this endpoint to retrieve a list of the templates that are available to use to create child containers.
 func (c *Client) ListContainerTempaltes(containerID string) (*ListContainerTempaltesResponse, error) {
 	c.result = new(ListContainerTempaltesResponse)
-	data, err := c.apiconnect("GET", "/container/"+containerID+"/template", nil)
+	data, err := c.makeRequest("GET", "/container/"+containerID+"/template", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -185,7 +185,7 @@ func (c *Client) ListContainerTempaltes(containerID string) (*ListContainerTempa
 // ViewAContainerTempl exports Use this endpoint to retrieve information about a specific container template, including which user access roles are available under this template.
 func (c *Client) ViewAContainerTempl(containerID, templID string) (*ViewAContainerTempl, error) {
 	c.result = new(ViewAContainerTempl)
-	data, err := c.apiconnect("GET", "/container/"+containerID+"/template/"+templID, nil)
+	data, err := c.makeRequest("GET", "/container/"+containerID+"/template/"+templID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -198,7 +198,7 @@ func (c *Client) ViewAContainerTempl(containerID, templID string) (*ViewAContain
 // ListChilContainers exports retrieves a list of child containers for the specified container. The list only includes the immediate children of the container.
 func (c *Client) ListChilContainers(containerID string) (*ListChilContainersResponse, error) {
 	c.result = new(ListChilContainersResponse)
-	data, err := c.apiconnect("GET", "/container/"+containerID+"/children", nil)
+	data, err := c.makeRequest("GET", "/container/"+containerID+"/children", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +211,7 @@ func (c *Client) ListChilContainers(containerID string) (*ListChilContainersResp
 // ViewAContainerOfParent exports Retieves information about the parent container of the specified container.
 func (c *Client) ViewAContainerOfParent(containerID string) (*ViewAContainerOfParentResponse, error) {
 	c.result = new(ViewAContainerOfParentResponse)
-	data, err := c.apiconnect("GET", "/container/"+containerID+"/parent", nil)
+	data, err := c.makeRequest("GET", "/container/"+containerID+"/parent", nil)
 	if err != nil {
 		return nil, err
 	}
