@@ -48,7 +48,7 @@ func New(key string) (*Client, error) {
 }
 
 // apiconnect exports a http client dial to digicert api endpoints.
-func (c *Client) apiconnect(method, uri string, headers http.Header) ([]byte, error) {
+func (c *Client) makeRequest(method, uri string, headers http.Header) ([]byte, error) {
 	var req *http.Request
 	var err error
 	fullURI := baseURI + strings.Trim(uri, "/")
