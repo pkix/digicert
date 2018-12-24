@@ -33,7 +33,7 @@ type NewAPIKeyRequest struct {
 	Name string `json:"name"`
 }
 
-// NewAPIKeyResponse presents a new api key reponse
+// NewAPIKeyResponse presents a new api key response
 type NewAPIKeyResponse struct {
 	ID     int    `json:"id"`
 	APIKey string `json:"api_key"`
