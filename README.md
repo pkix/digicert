@@ -1,7 +1,7 @@
 # digicert
 
 [![GoDoc](https://img.shields.io/badge/godoc-reference-5673AF.svg?style=flat-square)](https://godoc.org/github.com/pkix/digicert)
-[![Go Report Card](https://goreportcard.com/badge/github.com/pkix/digicert)](https://goreportcard.com/badge/github.com/pkix/digicert)
+[![Go Report Card](https://goreportcard.com/report/github.com/pkix/digicert)](https://goreportcard.com/badge/github.com/pkix/digicert)
 
 A Go library for interacting with
 [Digicert CertCentral's API v2](https://www.digicert.com/services/v2/documentation). This library allows you to:
