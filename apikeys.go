@@ -61,7 +61,7 @@ func (c *Client) NewAPIKey(userID, keyName string) (*NewAPIKeyResponse, error) {
 		Name: keyName,
 	}
 	c.result = new(NewAPIKeyResponse)
-	data, err := c.apiconnect("POST", "/key/user/"+userID, nil)
+	data, err := c.makeRequest("POST", "/key/user/"+userID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (c *Client) NewAPIKey(userID, keyName string) (*NewAPIKeyResponse, error) {
 // ListAPIKeys exports to retrieve a list of API Keys.
 func (c *Client) ListAPIKeys() (*ListAPIKeysResponse, error) {
 	c.result = new(ListAPIKeysResponse)
-	data, err := c.apiconnect("GET", "/key/", nil)
+	data, err := c.makeRequest("GET", "/key/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (c *Client) UpdateAPIKeyStatus(apiKeyID, status string) bool {
 	c.request = &APIKeyStatus{
 		Status: status,
 	}
-	_, err := c.apiconnect("PUT", "/key/"+apiKeyID+"/status", nil)
+	_, err := c.makeRequest("PUT", "/key/"+apiKeyID+"/status", nil)
 	if err != nil {
 		log.Println("err", err)
 		return false
