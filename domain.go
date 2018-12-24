@@ -196,7 +196,7 @@ type ApproveStatuesResponse struct {
 func (c *Client) NewDomain(request *NewDomainRequest) (*NewDomainResponse, error) {
 	c.result = new(NewDomainResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/domain", nil)
+	data, err := c.makeRequest("POST", "/domain", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +208,7 @@ func (c *Client) NewDomain(request *NewDomainRequest) (*NewDomainResponse, error
 
 // ActiveDomain exports to activate a domain that was previously deactivated.
 func (c *Client) ActiveDomain(id string) (bool, error) {
-	_, err := c.apiconnect("PUT", "/domain/"+id+"/activate", nil)
+	_, err := c.makeRequest("PUT", "/domain/"+id+"/activate", nil)
 	if err != nil {
 		return false, err
 	}
@@ -221,7 +221,7 @@ func (c *Client) ActiveDomain(id string) (bool, error) {
 
 // DeactiveDomain exports to deactivate a domain.
 func (c *Client) DeactiveDomain(id string) (bool, error) {
-	_, err := c.apiconnect("PUT", "/domain/"+id+"/deactivate", nil)
+	_, err := c.makeRequest("PUT", "/domain/"+id+"/deactivate", nil)
 	if err != nil {
 		return false, err
 	}
@@ -235,7 +235,7 @@ func (c *Client) DeactiveDomain(id string) (bool, error) {
 // ViewADomain exports to view a domain detail.
 func (c *Client) ViewADomain(id string) (*ViewADomainResponse, error) {
 	c.result = new(ViewADomainResponse)
-	data, err := c.apiconnect("GET", "/domain/"+id+"?include_dcv=true&include_validation=true", nil)
+	data, err := c.makeRequest("GET", "/domain/"+id+"?include_dcv=true&include_validation=true", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -248,7 +248,7 @@ func (c *Client) ViewADomain(id string) (*ViewADomainResponse, error) {
 // ListDomains exports to retrieve a list of domains.
 func (c *Client) ListDomains(containerID string) (*ListDoaminsResponse, error) {
 	c.result = new(ListDoaminsResponse)
-	data, err := c.apiconnect("GET", "/domain?container_id="+containerID, nil)
+	data, err := c.makeRequest("GET", "/domain?container_id="+containerID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -261,7 +261,7 @@ func (c *Client) ListDomains(containerID string) (*ListDoaminsResponse, error) {
 // ListValidationTypes exports to retrieve a list of validation types available for domains.
 func (c *Client) ListValidationTypes() (*ValidationTypesResponse, error) {
 	c.result = new(ValidationTypesResponse)
-	data, err := c.apiconnect("GET", "/domain/validation-type", nil)
+	data, err := c.makeRequest("GET", "/domain/validation-type", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +274,7 @@ func (c *Client) ListValidationTypes() (*ValidationTypesResponse, error) {
 // SubmitValidation exports to submit an existing domain for validation for one or more validation types, or to resubmit a domain for validation that has expired.
 func (c *Client) SubmitValidation(domainID string, request *ValidationRequest) (bool, error) {
 	c.request = request
-	_, err := c.apiconnect("POST", "/domain/"+domainID+"/validation", nil)
+	_, err := c.makeRequest("POST", "/domain/"+domainID+"/validation", nil)
 	if err != nil {
 		return false, err
 	}
@@ -287,7 +287,7 @@ func (c *Client) SubmitValidation(domainID string, request *ValidationRequest) (
 // ViewValidaton exports Use this domain to get a list of the validation types for which a domain has been submitted.
 func (c *Client) ViewValidaton(domainID string) (*ViewValidationResponse, error) {
 	c.result = new(ViewValidationResponse)
-	data, err := c.apiconnect("GET", "/domain/"+domainID+"validation", nil)
+	data, err := c.makeRequest("GET", "/domain/"+domainID+"validation", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +300,7 @@ func (c *Client) ViewValidaton(domainID string) (*ViewValidationResponse, error)
 // ListDomainControlMethods exports Use this endpoint to retrieve a list of domain control validation (DCV) methods types available for domains.
 func (c *Client) ListDomainControlMethods() (*ListDomainControlMethodsResponse, error) {
 	c.result = new(ListDomainControlMethodsResponse)
-	data, err := c.apiconnect("GET", "/domain/dcv/method", nil)
+	data, err := c.makeRequest("GET", "/domain/dcv/method", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +313,7 @@ func (c *Client) ListDomainControlMethods() (*ListDomainControlMethodsResponse, 
 // ChangeDomainControlMethod exports Use this endpoint to set the Domain Control Validation (DCV) method for the domain.
 func (c *Client) ChangeDomainControlMethod(domainID string, request *DomainControlMethodRequest) (bool, error) {
 	c.request = request
-	_, err := c.apiconnect("POST", "/domain/"+domainID+"/dcv/method", nil)
+	_, err := c.makeRequest("POST", "/domain/"+domainID+"/dcv/method", nil)
 	if err != nil {
 		return false, err
 	}
@@ -326,7 +326,7 @@ func (c *Client) ChangeDomainControlMethod(domainID string, request *DomainContr
 // GetDomainControlEmails exports Use this endpoint to retrieve domain email addresses for Domain Control Validation (DCV).
 func (c *Client) GetDomainControlEmails(domainID string) (*DomainControlEmailsResponse, error) {
 	c.result = new(DomainControlEmailsResponse)
-	data, err := c.apiconnect("GET", "/domain/"+domainID+"/dcv/emails", nil)
+	data, err := c.makeRequest("GET", "/domain/"+domainID+"/dcv/emails", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -339,7 +339,7 @@ func (c *Client) GetDomainControlEmails(domainID string) (*DomainControlEmailsRe
 // ResendDCVEmail exports Use this endpoint to resend emails for Domain Control Validation (DCV).
 func (c *Client) ResendDCVEmail(domainID string, request *ResendDCVEmailReqeust) (bool, error) {
 	c.request = request
-	_, err := c.apiconnect("POST", "/domain/"+domainID+"/dcv/emails", nil)
+	_, err := c.makeRequest("POST", "/domain/"+domainID+"/dcv/emails", nil)
 	if err != nil {
 		return false, err
 	}
@@ -353,7 +353,7 @@ func (c *Client) ResendDCVEmail(domainID string, request *ResendDCVEmailReqeust)
 func (c *Client) ApproveEmail(domainID string, request *EmailApprove) (*ApproveStatuesResponse, error) {
 	c.result = new(ApproveStatuesResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/domain/"+domainID+"/dcv", nil)
+	data, err := c.makeRequest("POST", "/domain/"+domainID+"/dcv", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -367,7 +367,7 @@ func (c *Client) ApproveEmail(domainID string, request *EmailApprove) (*ApproveS
 func (c *Client) ApproveDNS(domainID string, request *DNSApprove) (*ApproveStatuesResponse, error) {
 	c.result = new(ApproveStatuesResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/domain/"+domainID+"/dcv/cname", nil)
+	data, err := c.makeRequest("POST", "/domain/"+domainID+"/dcv/cname", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -380,7 +380,7 @@ func (c *Client) ApproveDNS(domainID string, request *DNSApprove) (*ApproveStatu
 // ValidateToken exports Use this endpoint to submit an email token for Domain Control Validation (DCV).
 func (c *Client) ValidateToken(token string) (*ApproveStatuesResponse, error) {
 	c.result = new(ApproveStatuesResponse)
-	data, err := c.apiconnect("PUT", "/domain/dcv/email/token/"+token, nil)
+	data, err := c.makeRequest("PUT", "/domain/dcv/email/token/"+token, nil)
 	if err != nil {
 		return nil, err
 	}
