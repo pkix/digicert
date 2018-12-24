@@ -15,7 +15,7 @@ type CheckUserNameResponse struct {
 // CheckUserName exports Use this endpoint to check to see if the specified username is available.
 func (c *Client) CheckUserName(username string) bool {
 	var check CheckUserNameResponse
-	data, err := c.apiconnect("GET", "/user/availability/"+username, nil)
+	data, err := c.makeRequest("GET", "/user/availability/"+username, nil)
 	if err != nil {
 		log.Println("err", err)
 		return false
