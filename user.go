@@ -149,7 +149,7 @@ type ListUsersResponse struct {
 	SchemeValidationErrors
 }
 
-// ListRoles exports Use this endpoint to retrieve a list of access roles that are avilable for the specified container. These roles can be used to create or update a user in the container.
+// ListRoles exports Use this endpoint to retrieve a list of access roles that are available for the specified container. These roles can be used to create or update a user in the container.
 func (c *Client) ListRoles(containerID string) (*ListRolesResponse, error) {
 	c.result = new(ListRolesResponse)
 	data, err := c.apiconnect("GET", "/container/"+containerID+"/role", nil)
