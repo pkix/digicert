@@ -146,7 +146,7 @@ type ListOrders struct {
 // ViewOrder exports Use this endpoint to retrieve a certificate order. Note that the Technical Contact information is not currently used. Technical Contact information will be copied from the Organization Contact at this time.
 func (c *Client) ViewOrder(orderID string) (*ViewOrderResponse, error) {
 	c.result = new(ViewOrderResponse)
-	data, err := c.apiconnect("GET", "/order/certificate/"+orderID, nil)
+	data, err := c.makeRequest("GET", "/order/certificate/"+orderID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +161,7 @@ func (c *Client) ListOrders(limit, offset int) (*ListOrders, error) {
 	c.result = new(ListOrders)
 	_limit := strconv.Itoa(limit)
 	_offset := strconv.Itoa(offset)
-	data, err := c.apiconnect("GET", "/order/certificate/?limit="+_limit+"&offset="+_offset, nil)
+	data, err := c.makeRequest("GET", "/order/certificate/?limit="+_limit+"&offset="+_offset, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +254,7 @@ type OrderDVResponse struct {
 func (c *Client) OrderSSLByDeterminator(request *UnknownSSLRequest) (*UnknownSSLResponse, error) {
 	c.result = new(UnknownSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/ssl", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/ssl", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -277,7 +277,7 @@ func (c *Client) OrderDVSSL(dvBrand string, request *OrderDVRequest) (*OrderDVRe
 	default:
 		return nil, errors.New("The DVSSL brands are not accepted")
 	}
-	data, err := c.apiconnect("POST", "/order/certificate/"+dvBrand, nil)
+	data, err := c.makeRequest("POST", "/order/certificate/"+dvBrand, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -324,7 +324,7 @@ type OrderOVEVSSLResponse struct {
 func (c *Client) OrderStandardSSL(request *OrderStandardSSLRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/ssl_plus", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/ssl_plus", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -362,7 +362,7 @@ type OrderSSLMultiDomainRequest struct {
 func (c *Client) OrderSSLMultiDomain(request *OrderSSLMultiDomainRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/ssl_multi_domain", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/ssl_multi_domain", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -399,7 +399,7 @@ type OrderWildcardSSLRequest struct {
 func (c *Client) OrderWildcardSSL(request *OrderWildcardSSLRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/ssl_wildcard", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/ssl_wildcard", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -435,7 +435,7 @@ type OrderEVSSLRequest struct {
 func (c *Client) OrderEVPlusSSL(request *OrderEVSSLRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/ssl_ev_plus", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/ssl_ev_plus", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -473,7 +473,7 @@ type OrderEVMultiDomainRequest struct {
 func (c *Client) OrderEVMultiDomainSSL(request *OrderEVMultiDomainRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/ssl_multi_domain", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/ssl_multi_domain", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -510,7 +510,7 @@ type OrderCloudSSLReqeust struct {
 func (c *Client) OrderCloudSSL(request *OrderEVMultiDomainRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/ssl_cloud_wildcard", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/ssl_cloud_wildcard", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -547,7 +547,7 @@ type OrderClientResponse struct {
 func (c *Client) OrderClientPremium(request *OrderClientPremiumRequest) (*OrderClientResponse, error) {
 	c.result = new(OrderClientResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/client_premium_sha2", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/client_premium_sha2", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -595,7 +595,7 @@ type OrderClientDigitalSignaturePlusRequest struct {
 func (c *Client) OrderClientEmailSecurityPlus(request *OrderClientEmailSecurityPlusRequest) (*OrderClientResponse, error) {
 	c.result = new(OrderClientResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/client_email_security_plus", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/client_email_security_plus", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -610,7 +610,7 @@ func (c *Client) OrderClientEmailSecurityPlus(request *OrderClientEmailSecurityP
 func (c *Client) OrderClientDigitalSignaturePlus(request *OrderClientDigitalSignaturePlusRequest) (*OrderClientResponse, error) {
 	c.result = new(OrderClientResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/client_digital_signature_plus", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/client_digital_signature_plus", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -646,7 +646,7 @@ type OrderPrivateSSLPlusRequest struct {
 func (c *Client) OrderPrivateSSLPlus(request *OrderPrivateSSLPlusRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/private_ssl_plus", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/private_ssl_plus", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -682,7 +682,7 @@ type OrderPrivateSSLWildcardRequest struct {
 func (c *Client) OrderPrivateSSLWildcard(request *OrderPrivateSSLWildcardRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/private_ssl_wildcard", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/private_ssl_wildcard", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -719,7 +719,7 @@ type OrderPrivateSSLMultiDomainRequest struct {
 func (c *Client) OrderPrivateSSLMultiDomain(request *OrderPrivateSSLMultiDomainRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/private_ssl_multi_domain", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/private_ssl_multi_domain", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -750,7 +750,7 @@ type OrderCodeSigningRequest struct {
 func (c *Client) OrderCodeSigning(request *OrderCodeSigningRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/code_signing", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/code_signing", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -792,7 +792,7 @@ type OrderEVCodeSigningRequest struct {
 func (c *Client) OrderEVCodeSigning(request *OrderEVCodeSigningRequest) (*OrderOVEVSSLResponse, error) {
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/code_signing_ev", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/code_signing_ev", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -851,7 +851,7 @@ func (c *Client) OrderDocumentSigningOrganization(amount int, request *OrderDocu
 	}
 	c.result = new(OrderOVEVSSLResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/order/certificate/"+product, nil)
+	data, err := c.makeRequest("POST", "/order/certificate/"+product, nil)
 	if err != nil {
 		return nil, err
 	}
