@@ -123,7 +123,7 @@ type ValidateOrganizationRequest struct {
 // ViewOrganization exports Use this endpoint to view information about an organization.
 func (c *Client) ViewOrganization(orgID string) (*ViewOrganizationDetails, error) {
 	c.result = new(ViewOrganizationDetails)
-	data, err := c.apiconnect("GET", "/organization/"+orgID, nil)
+	data, err := c.makeRequest("GET", "/organization/"+orgID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func (c *Client) ViewOrganization(orgID string) (*ViewOrganizationDetails, error
 // ListAllOrganizations exports Use this endpoint to retrieve a list of organizations.
 func (c *Client) ListAllOrganizations() (*AllOrganizationsResponse, error) {
 	c.result = new(AllOrganizationsResponse)
-	data, err := c.apiconnect("GET", "/organization/", nil)
+	data, err := c.makeRequest("GET", "/organization/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +150,7 @@ func (c *Client) ListAllOrganizations() (*AllOrganizationsResponse, error) {
 func (c *Client) NewOrganization(request *NewOrganizationRequest) (*ViewOrganizationDetails, error) {
 	c.result = new(ViewOrganizationDetails)
 	c.request = request
-	data, err := c.apiconnect("POST", "/organization/", nil)
+	data, err := c.makeRequest("POST", "/organization/", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +163,7 @@ func (c *Client) NewOrganization(request *NewOrganizationRequest) (*ViewOrganiza
 // ViewOrganizationValidation exports Use this endpoint to obtain validation statuses for an organization.
 func (c *Client) ViewOrganizationValidation(orgID string) (*ViewOrganizationValidationResponse, error) {
 	c.result = new(ViewOrganizationValidationResponse)
-	data, err := c.apiconnect("GET", "/organization/"+orgID+"/validation", nil)
+	data, err := c.makeRequest("GET", "/organization/"+orgID+"/validation", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (c *Client) ViewOrganizationValidation(orgID string) (*ViewOrganizationVali
 func (c *Client) ValidateOrganization(orgID string, request *ValidateOrganizationRequest) bool {
 	c.result = new(ViewOrganizationValidationResponse)
 	c.request = request
-	_, err := c.apiconnect("POST", "/organization/"+orgID+"/validation", nil)
+	_, err := c.makeRequest("POST", "/organization/"+orgID+"/validation", nil)
 	if err != nil {
 		return false
 	}
