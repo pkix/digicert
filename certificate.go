@@ -163,7 +163,7 @@ type AddCSRRequest struct {
 func (c *Client) DownloadCertificate(certificateID string) (string, error) {
 	headers := make(http.Header)
 	headers.Set("Content-Type", "application/x-pem-file")
-	data, err := c.apiconnect("GET", "/certificate/"+certificateID+"/download/platform", headers)
+	data, err := c.makeRequest("GET", "/certificate/"+certificateID+"/download/platform", headers)
 	if err != nil {
 		return "", err
 	}
@@ -174,7 +174,7 @@ func (c *Client) DownloadCertificate(certificateID string) (string, error) {
 func (c *Client) DownloadPKCS7Certificate(certificateID string) (string, error) {
 	headers := make(http.Header)
 	headers.Set("Content-Type", "application/x-pkcs7-certificates")
-	data, err := c.apiconnect("GET", "/certificate/"+certificateID+"/download/format/p7b", headers)
+	data, err := c.makeRequest("GET", "/certificate/"+certificateID+"/download/format/p7b", headers)
 	if err != nil {
 		return "", err
 	}
@@ -188,7 +188,7 @@ func (c *Client) Revoke(certificateID, comment string) (*RevokeCertificateRespon
 		Comment: comment,
 	}
 	c.result = new(RevokeCertificateResponse)
-	data, err := c.apiconnect("PUT", "/certificate/"+certificateID+"/revoke", nil)
+	data, err := c.makeRequest("PUT", "/certificate/"+certificateID+"/revoke", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -205,7 +205,7 @@ func (c *Client) Cancel(orderID, comment string) (bool, error) {
 		Note:       comment,
 		SendEmails: true,
 	}
-	_, err := c.apiconnect("PUT", "/order/certificate/"+orderID+"/status", nil)
+	_, err := c.makeRequest("PUT", "/order/certificate/"+orderID+"/status", nil)
 	if err != nil {
 		return false, err
 	}
@@ -220,7 +220,7 @@ func (c *Client) Cancel(orderID, comment string) (bool, error) {
 func (c *Client) Reissue(orderID string, request *ReissueRequest) (*ReissueResponse, error) {
 	c.request = request
 	c.result = new(ReissueResponse)
-	data, err := c.apiconnect("POST", "/order/certificate/"+orderID+"/reissue", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/"+orderID+"/reissue", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -234,7 +234,7 @@ func (c *Client) Reissue(orderID string, request *ReissueRequest) (*ReissueRespo
 func (c *Client) Duplicate(orderID string, request *DuplicateRequest) (*DuplicateResponse, error) {
 	c.request = request
 	c.result = new(DuplicateResponse)
-	data, err := c.apiconnect("POST", "/order/certificate/"+orderID+"/duplicate", nil)
+	data, err := c.makeRequest("POST", "/order/certificate/"+orderID+"/duplicate", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -247,7 +247,7 @@ func (c *Client) Duplicate(orderID string, request *DuplicateRequest) (*Duplicat
 // ListDuplicateCertificates exports view all duplicate certificates for an order.
 func (c *Client) ListDuplicateCertificates(orderID string) (*ListDuplicateResponse, error) {
 	c.result = new(ListDuplicateResponse)
-	data, err := c.apiconnect("GET", "/order/certificate/"+orderID+"/duplicate", nil)
+	data, err := c.makeRequest("GET", "/order/certificate/"+orderID+"/duplicate", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -269,7 +269,7 @@ type ListOrganizationsRequest struct {
 // ListOrganizations exports retrieve a list of organizations.
 func (c *Client) ListOrganizations(containerID string) (*ListOrganizationsRequest, error) {
 	c.result = new(ListOrganizationsRequest)
-	data, err := c.apiconnect("GET", "/container/"+containerID+"/order/organization", nil)
+	data, err := c.makeRequest("GET", "/container/"+containerID+"/order/organization", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -292,7 +292,7 @@ type ListEmailValidationsResponse struct {
 // ListEmailValidations exprots Use this endpoint to view the status of all emails that require validation on a client certificate order.
 func (c *Client) ListEmailValidations(orderID string) (*ListEmailValidationsResponse, error) {
 	c.result = new(ListEmailValidationsResponse)
-	data, err := c.apiconnect("GET", "/order/certificate/"+orderID+"/email-validation", nil)
+	data, err := c.makeRequest("GET", "/order/certificate/"+orderID+"/email-validation", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -305,7 +305,7 @@ func (c *Client) ListEmailValidations(orderID string) (*ListEmailValidationsResp
 // OrderStatus exports Use this endpoint to check on order status changes within a supplied time range up to a week (10080 minutes).
 func (c *Client) OrderStatus(minutes int) (*OrderStatusResponse, error) {
 	c.result = new(OrderStatusResponse)
-	data, err := c.apiconnect("GET", "/order/certificate/status-changes?minutes="+strconv.Itoa(minutes), nil)
+	data, err := c.makeRequest("GET", "/order/certificate/status-changes?minutes="+strconv.Itoa(minutes), nil)
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +331,7 @@ func (c *Client) DVChangeDCVMethod(orderID, method string) (*DVRandomValue, erro
 		DcvMethod: method,
 	}
 	c.result = new(DVRandomValue)
-	data, err := c.apiconnect("PUT", "/order/certificate/"+orderID+"/dcv-method", nil)
+	data, err := c.makeRequest("PUT", "/order/certificate/"+orderID+"/dcv-method", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -343,7 +343,7 @@ func (c *Client) DVChangeDCVMethod(orderID, method string) (*DVRandomValue, erro
 
 // DVResendDCVEmail exprots Use this endpoint on pending DV SSL orders to resend DCV emails for a certificate order.
 func (c *Client) DVResendDCVEmail(orderID, comment string) (bool, error) {
-	_, err := c.apiconnect("PUT", "/order/certificate/"+orderID+"/resend-emails", nil)
+	_, err := c.makeRequest("PUT", "/order/certificate/"+orderID+"/resend-emails", nil)
 	if err != nil {
 		return false, err
 	}
@@ -357,7 +357,7 @@ func (c *Client) DVResendDCVEmail(orderID, comment string) (bool, error) {
 // DVDCVRandomValue exports Use this endpoint on pending DV SSL orders to generate a random value for dns-txt-token and http-token DCV methods.
 func (c *Client) DVDCVRandomValue(orderID string) (*DVRandomValue, error) {
 	c.result = new(DVRandomValue)
-	data, err := c.apiconnect("PUT", "/order/certificate/"+orderID+"/dcv-random-value", nil)
+	data, err := c.makeRequest("PUT", "/order/certificate/"+orderID+"/dcv-random-value", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +370,7 @@ func (c *Client) DVDCVRandomValue(orderID string) (*DVRandomValue, error) {
 // DVCheckDCV exports Use this endpoint on pending DV SSL orders to perform Domain Control Validation (DCV) over a domain one a random value for dns-txt-token or http-token is in place.
 func (c *Client) DVCheckDCV(orderID string) (*DVCheckDCVResponse, error) {
 	c.result = new(DVCheckDCVResponse)
-	data, err := c.apiconnect("PUT", "/order/certificate/"+orderID+"/check-dcv", nil)
+	data, err := c.makeRequest("PUT", "/order/certificate/"+orderID+"/check-dcv", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -388,7 +388,7 @@ func (c *Client) AddCSR(orderID, csr string) (bool, error) {
 	c.request = &AddCSRRequest{
 		CSR: csr,
 	}
-	_, err := c.apiconnect("POST", "/order/certificate/"+orderID+"/csr", nil)
+	_, err := c.makeRequest("POST", "/order/certificate/"+orderID+"/csr", nil)
 	if err != nil {
 		return false, err
 	}
