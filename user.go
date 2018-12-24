@@ -152,7 +152,7 @@ type ListUsersResponse struct {
 // ListRoles exports Use this endpoint to retrieve a list of access roles that are available for the specified container. These roles can be used to create or update a user in the container.
 func (c *Client) ListRoles(containerID string) (*ListRolesResponse, error) {
 	c.result = new(ListRolesResponse)
-	data, err := c.apiconnect("GET", "/container/"+containerID+"/role", nil)
+	data, err := c.makeRequest("GET", "/container/"+containerID+"/role", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -166,7 +166,7 @@ func (c *Client) ListRoles(containerID string) (*ListRolesResponse, error) {
 func (c *Client) NewUser(request *NewUserRequest) (*NewUserResponse, error) {
 	c.result = new(NewUserResponse)
 	c.request = request
-	data, err := c.apiconnect("POST", "/user", nil)
+	data, err := c.makeRequest("POST", "/user", nil)
 	if err != nil {
 		return nil, err
 	}
@@ -178,7 +178,7 @@ func (c *Client) NewUser(request *NewUserRequest) (*NewUserResponse, error) {
 
 // ResendCreateUserEmail exports Use this endpoint to resend a create user email to a specific user.
 func (c *Client) ResendCreateUserEmail(userID string) bool {
-	_, err := c.apiconnect("GET", "/user/"+userID+"/resend-create-email/", nil)
+	_, err := c.makeRequest("GET", "/user/"+userID+"/resend-create-email/", nil)
 	if err != nil {
 		return false
 	}
@@ -191,7 +191,7 @@ func (c *Client) ResendCreateUserEmail(userID string) bool {
 // ViewUser exports Use this endpoint to view the specified user.
 func (c *Client) ViewUser(userID string) (*UserResponse, error) {
 	c.result = new(UserResponse)
-	data, err := c.apiconnect("GET", "/user/"+userID, nil)
+	data, err := c.makeRequest("GET", "/user/"+userID, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -210,7 +210,7 @@ func (c *Client) ViewUser(userID string) (*UserResponse, error) {
 // telephone	Optional	[string]		This is required for to allow the User to be an approver for Extended Validation certificates
 func (c *Client) UpdateUser(userID string, request *UpdateUserRequest) bool {
 	c.request = request
-	_, err := c.apiconnect("PUT", "/user/"+userID, nil)
+	_, err := c.makeRequest("PUT", "/user/"+userID, nil)
 	if err != nil {
 		return false
 	}
@@ -223,7 +223,7 @@ func (c *Client) UpdateUser(userID string, request *UpdateUserRequest) bool {
 // UpdateUserRole exports Use this endpoint to update the access roles of the specified user.
 func (c *Client) UpdateUserRole(userID string, request *UpdateUserRoleRequest) bool {
 	c.request = request
-	_, err := c.apiconnect("PUT", "/user/"+userID+"/role", nil)
+	_, err := c.makeRequest("PUT", "/user/"+userID+"/role", nil)
 	if err != nil {
 		return false
 	}
@@ -235,7 +235,7 @@ func (c *Client) UpdateUserRole(userID string, request *UpdateUserRoleRequest) b
 
 // DeleteUser exports Use this endpoint with the DELETE method to delete the specified user.
 func (c *Client) DeleteUser(userID string) bool {
-	_, err := c.apiconnect("DELETE", "/user/"+userID, nil)
+	_, err := c.makeRequest("DELETE", "/user/"+userID, nil)
 	if err != nil {
 		return false
 	}
@@ -248,7 +248,7 @@ func (c *Client) DeleteUser(userID string) bool {
 // ListUsers exports Use this endpoint to retrieve a list of users in the current container and all child containers or from the specified container.
 func (c *Client) ListUsers(containerID string) (*ListUsersResponse, error) {
 	c.result = new(ListUsersResponse)
-	data, err := c.apiconnect("GET", "/user?container_id="+containerID, nil)
+	data, err := c.makeRequest("GET", "/user?container_id="+containerID, nil)
 	if err != nil {
 		return nil, err
 	}
